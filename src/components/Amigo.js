@@ -26,12 +26,44 @@ export const Amigo = (props) => {
     toggleEditando();
   };
 
+  const cuentaEstrellas = () => {
+    if (amigo.valoracion === 0) {
+      return;
+    } else if (amigo.valoracion === 1) {
+      return <FaStar />;
+    } else if (amigo.valoracion === 2) {
+      return (
+        <span>
+          <FaStar />
+          <FaStar />
+        </span>
+      );
+    } else if (amigo.valoracion === 3) {
+      return (
+        <span>
+          <FaStar />
+          <FaStar />
+          <FaStar />
+        </span>
+      );
+    } else {
+      return (
+        <span>
+          <FaStar />
+          <FaStar />
+          <FaStar />
+          <FaStar />
+        </span>
+      );
+    }
+  };
+
   return (
     <li className="col-4 mt-4">
       <ul className="articulo-amigo list-unstyled p-3">
         <li className="propiedad-amigo">Nombre: {amigo.nombre} </li>
         <li className="propiedad-amigo">Apellido: {amigo.apellido}</li>
-        <li className="propiedad-amigo">Valoración: {amigo.valoracion}</li>
+        <li className="propiedad-amigo">Valoración: {cuentaEstrellas()}</li>
         <li className="funciones-amigo">
           <i>
             <FaPencilAlt onClick={llenarFormEditar} />
