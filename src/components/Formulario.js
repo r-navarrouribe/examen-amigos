@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { FaStar } from "react-icons/fa";
 
 export const Formulario = (props) => {
@@ -12,11 +12,11 @@ export const Formulario = (props) => {
     apellido,
     setApellido,
     idParaEditar,
+    toggleCreando,
+    creando,
+    valoracion,
   } = props;
-  const [creando, setCreando] = useState(false);
-  const toggleCreando = () => {
-    setCreando(!creando);
-  };
+
   // post request
 
   const anyadirAmigo = useCallback(
@@ -34,8 +34,9 @@ export const Formulario = (props) => {
         }),
       });
       llamadaAPI();
+      toggleCreando();
     },
-    [apellido, llamadaAPI, nombre, urlAPI]
+    [apellido, llamadaAPI, nombre, toggleCreando, urlAPI]
   );
 
   // put request
@@ -50,12 +51,21 @@ export const Formulario = (props) => {
         body: JSON.stringify({
           nombre: nombre,
           apellido: apellido,
-          valoracion: 1,
+          valoracion: valoracion,
         }),
       });
       llamadaAPI();
+      toggleEditando();
     },
-    [apellido, nombre, urlAPI, llamadaAPI]
+    [
+      urlAPI,
+      idParaEditar,
+      nombre,
+      apellido,
+      valoracion,
+      llamadaAPI,
+      toggleEditando,
+    ]
   );
 
   return (

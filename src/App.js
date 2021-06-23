@@ -28,6 +28,10 @@ function App() {
   const toggleEditando = () => {
     setEditando(!editando);
   };
+  const [creando, setCreando] = useState(false);
+  const toggleCreando = () => {
+    setCreando(!creando);
+  };
 
   return (
     <>
@@ -43,6 +47,9 @@ function App() {
           apellido={apellido}
           setApellido={setApellido}
           idParaEditar={idParaEditar}
+          toggleCreando={toggleCreando}
+          valoracion={valoracion}
+          creando={creando}
         />
         <Amigos
           arrayAmigos={arrayAmigos}
