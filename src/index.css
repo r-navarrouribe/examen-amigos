@@ -1,13 +1,47 @@
+:root {
+  --background-color: #483d8b;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.boton,
+.articulo-amigo {
+  background-color: var(--background-color);
+  color: #fff;
+}
+
+.articulo-amigo {
+  border-radius: 15px;
+  position: relative;
+}
+
+.propiedad-amigo {
+  margin-bottom: 15px;
+}
+
+.funciones-amigo {
+  position: absolute;
+  top: 10px;
+  left: 167px;
+}
+
+.input-formulario {
+  border-color: var(--background-color);
+}
+
+.botones-form {
+  display: flex;
+  flex-direction: column;
 }

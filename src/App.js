@@ -1,31 +1,29 @@
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Redirect,
-} from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Cabecera } from "./components/Cabecera";
-import { PaginaNotFound } from "./paginas/PaginaNotFound";
-import { PaginaPrincipal } from "./paginas/PaginaPrincipal";
-
+import { Formulario } from "./components/Formulario";
+import { Amigos } from "./components/Amigos";
 function App() {
+  // Declariaciones API
+  const [arrayAmigos, setArrayAmigos] = useState([]);
+  const urlAPI = "http://localhost:3001/amigos/";
+
+  // LLamada get API
+
+  const llamadaAPI = async () => {
+    const resp = await fetch(urlAPI);
+    const datosResp = await resp.json();
+    setArrayAmigos(datosResp);
+  };
+  useEffect(() => {
+    llamadaAPI();
+  }, []);
+
   return (
     <>
       <div className="container">
-        <Router>
-          <Cabecera />
-          <Switch>
-            <Route path="/principal" exact>
-              <PaginaPrincipal />
-            </Route>
-            <Route path="/" exact>
-              <Redirect to="/principal" />
-            </Route>
-            <Route path="**" exact>
-              <PaginaNotFound />
-            </Route>
-          </Switch>
-        </Router>
+        <Cabecera arrayAmigos={arrayAmigos} />
+        <Formulario />
+        <Amigos arrayAmigos={arrayAmigos} />
       </div>
     </>
   );
