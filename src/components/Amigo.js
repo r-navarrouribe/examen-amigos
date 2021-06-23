@@ -2,12 +2,29 @@ import { useCallback } from "react";
 import { FaPencilAlt, FaStar, FaTimes } from "react-icons/fa";
 
 export const Amigo = (props) => {
-  const { amigo, urlAPI, llamadaAPI } = props;
+  const {
+    amigo,
+    urlAPI,
+    llamadaAPI,
+    toggleEditando,
+    setNombre,
+    setApellido,
+    setValoracion,
+    setIdParaEditar,
+  } = props;
   // delete request
   const eliminarAmigo = useCallback(async () => {
     const resp = await fetch(urlAPI + amigo.id, { method: "DELETE" });
     llamadaAPI();
   }, [amigo.id, llamadaAPI, urlAPI]);
+
+  const llenarFormEditar = () => {
+    setNombre(amigo.nombre);
+    setApellido(amigo.apellido);
+    setValoracion(amigo.setValoracion);
+    setIdParaEditar(amigo.id);
+    toggleEditando();
+  };
 
   return (
     <li className="col-4 mt-4">
@@ -19,7 +36,7 @@ export const Amigo = (props) => {
         </li>
         <li className="funciones-amigo">
           <i>
-            <FaPencilAlt />
+            <FaPencilAlt onClick={llenarFormEditar} />
           </i>
           <i>
             <FaTimes onClick={eliminarAmigo} />

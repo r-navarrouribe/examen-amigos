@@ -2,14 +2,23 @@ import { useCallback, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 export const Formulario = (props) => {
-  const { urlAPI, llamadaAPI } = props;
+  const {
+    urlAPI,
+    llamadaAPI,
+    editando,
+    toggleEditando,
+    nombre,
+    setNombre,
+    apellido,
+    setApellido,
+    idParaEditar,
+  } = props;
   const [creando, setCreando] = useState(false);
   const toggleCreando = () => {
     setCreando(!creando);
   };
   // post request
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
+
   const anyadirAmigo = useCallback(
     async (e) => {
       e.preventDefault();
@@ -26,12 +35,32 @@ export const Formulario = (props) => {
       });
       llamadaAPI();
     },
-    [apellido, nombre, urlAPI]
+    [apellido, llamadaAPI, nombre, urlAPI]
+  );
+
+  // put request
+  const editarAmigo = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const resp = await fetch(urlAPI + idParaEditar, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          apellido: apellido,
+          valoracion: 1,
+        }),
+      });
+      llamadaAPI();
+    },
+    [apellido, nombre, urlAPI, llamadaAPI]
   );
 
   return (
     <section>
-      {creando === false && (
+      {creando === false && editando === false && (
         <button type="button" className="boton btn" onClick={toggleCreando}>
           Crear amigo
         </button>
@@ -71,6 +100,52 @@ export const Formulario = (props) => {
               Crear
             </button>
             <button type="button" className="boton btn" onClick={toggleCreando}>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      )}
+      {editando && (
+        <form className="row" onSubmit={editarAmigo}>
+          <div className="form-group col-3">
+            <label htmlFor="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              className="input-formulario form-control"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </div>
+          <div className="form-group col-3">
+            <label htmlFor="apellido">Apellido</label>
+            <input
+              type="text"
+              id="apellido"
+              className="input-formulario form-control"
+              value={apellido}
+              onChange={(e) => setApellido(e.target.value)}
+            />
+          </div>
+          <div className="form-group col-2">
+            <label htmlFor="valoracion">Valoración</label>
+            <select id="valoracion" className="input-formulario form-control">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div className="col-4 botones-form">
+            <button type="sumbit" className="boton btn mb-2">
+              Editar
+            </button>
+            <button
+              type="button"
+              className="boton btn"
+              onClick={toggleEditando}
+            >
               Cancelar
             </button>
           </div>

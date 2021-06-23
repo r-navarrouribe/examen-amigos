@@ -18,15 +18,41 @@ function App() {
     llamadaAPI();
   }, []);
 
+  // otras declaraciones
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [valoracion, setValoracion] = useState(null);
+  const [idParaEditar, setIdParaEditar] = useState(null);
+
+  const [editando, setEditando] = useState(false);
+  const toggleEditando = () => {
+    setEditando(!editando);
+  };
+
   return (
     <>
       <div className="container">
         <Cabecera arrayAmigos={arrayAmigos} />
-        <Formulario urlAPI={urlAPI} llamadaAPI={llamadaAPI} />
+        <Formulario
+          urlAPI={urlAPI}
+          llamadaAPI={llamadaAPI}
+          editando={editando}
+          toggleEditando={toggleEditando}
+          nombre={nombre}
+          setNombre={setNombre}
+          apellido={apellido}
+          setApellido={setApellido}
+          idParaEditar={idParaEditar}
+        />
         <Amigos
           arrayAmigos={arrayAmigos}
           urlAPI={urlAPI}
           llamadaAPI={llamadaAPI}
+          toggleEditando={toggleEditando}
+          setNombre={setNombre}
+          setApellido={setApellido}
+          setValoracion={setValoracion}
+          setIdParaEditar={setIdParaEditar}
         />
       </div>
     </>
