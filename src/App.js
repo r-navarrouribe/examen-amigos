@@ -49,6 +49,7 @@ function App() {
           idParaEditar={idParaEditar}
           toggleCreando={toggleCreando}
           valoracion={valoracion}
+          setValoracion={setValoracion}
           creando={creando}
         />
         <Amigos

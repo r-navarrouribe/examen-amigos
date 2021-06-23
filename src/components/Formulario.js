@@ -15,6 +15,7 @@ export const Formulario = (props) => {
     toggleCreando,
     creando,
     valoracion,
+    setValoracion,
   } = props;
 
   // post request
@@ -30,13 +31,13 @@ export const Formulario = (props) => {
         body: JSON.stringify({
           nombre: nombre,
           apellido: apellido,
-          valoracion: 1,
+          valoracion: +valoracion,
         }),
       });
       llamadaAPI();
       toggleCreando();
     },
-    [apellido, llamadaAPI, nombre, toggleCreando, urlAPI]
+    [apellido, llamadaAPI, nombre, toggleCreando, urlAPI, valoracion]
   );
 
   // put request
@@ -51,7 +52,7 @@ export const Formulario = (props) => {
         body: JSON.stringify({
           nombre: nombre,
           apellido: apellido,
-          valoracion: valoracion,
+          valoracion: +valoracion,
         }),
       });
       llamadaAPI();
@@ -97,7 +98,11 @@ export const Formulario = (props) => {
           </div>
           <div className="form-group col-2">
             <label htmlFor="valoracion">Valoración</label>
-            <select id="valoracion" className="input-formulario form-control">
+            <select
+              id="valoracion"
+              className="input-formulario form-control"
+              onChange={(e) => setValoracion(e.target.value)}
+            >
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -139,7 +144,11 @@ export const Formulario = (props) => {
           </div>
           <div className="form-group col-2">
             <label htmlFor="valoracion">Valoración</label>
-            <select id="valoracion" className="input-formulario form-control">
+            <select
+              id="valoracion"
+              className="input-formulario form-control"
+              onChange={(e) => setValoracion(e.target.value)}
+            >
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
