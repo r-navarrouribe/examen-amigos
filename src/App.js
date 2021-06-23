@@ -22,8 +22,8 @@ function App() {
     <>
       <div className="container">
         <Cabecera arrayAmigos={arrayAmigos} />
-        <Formulario urlAPI={urlAPI} />
-        <Amigos arrayAmigos={arrayAmigos} />
+        <Formulario urlAPI={urlAPI} llamadaAPI={llamadaAPI} />
+        <Amigos arrayAmigos={arrayAmigos} urlAPI={urlAPI} />
       </div>
     </>
   );

@@ -1,7 +1,13 @@
+import { useCallback } from "react";
 import { FaPencilAlt, FaStar, FaTimes } from "react-icons/fa";
 
 export const Amigo = (props) => {
-  const { amigo } = props;
+  const { amigo, urlAPI } = props;
+  // delete request
+  const eliminarAmigo = useCallback(async () => {
+    const resp = await fetch(urlAPI + amigo.id, { method: "DELETE" });
+  }, [amigo.id, urlAPI]);
+
   return (
     <li className="col-4 mt-4">
       <ul className="articulo-amigo list-unstyled p-3">
@@ -11,12 +17,12 @@ export const Amigo = (props) => {
           Valoración: <FaStar />
         </li>
         <li className="funciones-amigo">
-          <span>
+          <i>
             <FaPencilAlt />
-          </span>
-          <span>
-            <FaTimes />{" "}
-          </span>
+          </i>
+          <i>
+            <FaTimes onClick={eliminarAmigo} />
+          </i>
         </li>
       </ul>
     </li>

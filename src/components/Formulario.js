@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 export const Formulario = (props) => {
-  const { urlAPI } = props;
+  const { urlAPI, llamadaAPI } = props;
   const [creando, setCreando] = useState(false);
   const toggleCreando = () => {
     setCreando(!creando);
@@ -10,19 +10,24 @@ export const Formulario = (props) => {
   // post request
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const anyadirAmigo = useCallback(async () => {
-    const resp = await fetch(urlAPI, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nombre: nombre,
-        apellido: apellido,
-        valoracion: <FaStar />,
-      }),
-    });
-  }, [apellido, nombre, urlAPI]);
+  const anyadirAmigo = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const resp = await fetch(urlAPI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          apellido: apellido,
+          valoracion: 1,
+        }),
+      });
+      llamadaAPI();
+    },
+    [apellido, nombre, urlAPI]
+  );
 
   return (
     <section>
