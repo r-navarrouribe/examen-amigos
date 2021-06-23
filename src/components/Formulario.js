@@ -1,25 +1,45 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { FaStar } from "react-icons/fa";
 
-export const Formulario = () => {
-  const [creando, setCreando] = useState(true);
+export const Formulario = (props) => {
+  const { urlAPI } = props;
+  const [creando, setCreando] = useState(false);
   const toggleCreando = () => {
     setCreando(!creando);
   };
+  // post request
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const anyadirAmigo = useCallback(async () => {
+    const resp = await fetch(urlAPI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: nombre,
+        apellido: apellido,
+        valoracion: <FaStar />,
+      }),
+    });
+  }, [apellido, nombre, urlAPI]);
+
   return (
     <section>
       {creando === false && (
-        <button type="button" className="boton btn">
+        <button type="button" className="boton btn" onClick={toggleCreando}>
           Crear amigo
         </button>
       )}
       {creando && (
-        <form className="row">
+        <form className="row" onSubmit={anyadirAmigo}>
           <div className="form-group col-3">
             <label htmlFor="nombre">Nombre</label>
             <input
               type="text"
               id="nombre"
               className="input-formulario form-control"
+              onChange={(e) => setNombre(e.target.value)}
             />
           </div>
           <div className="form-group col-3">
@@ -28,6 +48,7 @@ export const Formulario = () => {
               type="text"
               id="apellido"
               className="input-formulario form-control"
+              onChange={(e) => setApellido(e.target.value)}
             />
           </div>
           <div className="form-group col-2">
@@ -44,7 +65,7 @@ export const Formulario = () => {
             <button type="sumbit" className="boton btn mb-2">
               Crear
             </button>
-            <button type="button" className="boton btn">
+            <button type="button" className="boton btn" onClick={toggleCreando}>
               Cancelar
             </button>
           </div>
