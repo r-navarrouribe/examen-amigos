@@ -2,11 +2,12 @@ import { useCallback } from "react";
 import { FaPencilAlt, FaStar, FaTimes } from "react-icons/fa";
 
 export const Amigo = (props) => {
-  const { amigo, urlAPI } = props;
+  const { amigo, urlAPI, llamadaAPI } = props;
   // delete request
   const eliminarAmigo = useCallback(async () => {
     const resp = await fetch(urlAPI + amigo.id, { method: "DELETE" });
-  }, [amigo.id, urlAPI]);
+    llamadaAPI();
+  }, [amigo.id, llamadaAPI, urlAPI]);
 
   return (
     <li className="col-4 mt-4">
