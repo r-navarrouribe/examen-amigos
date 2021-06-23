@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { FaPencilAlt, FaStar, FaTimes } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 export const Amigo = (props) => {
   const {
@@ -14,7 +15,7 @@ export const Amigo = (props) => {
   } = props;
   // delete request
   const eliminarAmigo = useCallback(async () => {
-    const resp = await fetch(urlAPI + amigo.id, { method: "DELETE" });
+    await fetch(urlAPI + amigo.id, { method: "DELETE" });
     llamadaAPI();
   }, [amigo.id, llamadaAPI, urlAPI]);
 
@@ -75,4 +76,15 @@ export const Amigo = (props) => {
       </ul>
     </li>
   );
+};
+
+Amigo.propTypes = {
+  urlAPI: PropTypes.string.isRequired,
+  llamadaAPI: PropTypes.func.isRequired,
+  toggleEditando: PropTypes.func.isRequired,
+  setNombre: PropTypes.func.isRequired,
+  setApellido: PropTypes.func.isRequired,
+  setValoracion: PropTypes.func.isRequired,
+  setIdParaEditar: PropTypes.func.isRequired,
+  amigo: PropTypes.object.isRequired,
 };

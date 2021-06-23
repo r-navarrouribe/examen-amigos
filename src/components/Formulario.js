@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { FaStar } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 export const Formulario = (props) => {
   const {
@@ -23,7 +23,7 @@ export const Formulario = (props) => {
   const anyadirAmigo = useCallback(
     async (e) => {
       e.preventDefault();
-      const resp = await fetch(urlAPI, {
+      await fetch(urlAPI, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const Formulario = (props) => {
   const editarAmigo = useCallback(
     async (e) => {
       e.preventDefault();
-      const resp = await fetch(urlAPI + idParaEditar, {
+      await fetch(urlAPI + idParaEditar, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -103,6 +103,7 @@ export const Formulario = (props) => {
               className="input-formulario form-control"
               onChange={(e) => setValoracion(e.target.value)}
             >
+              <option value="">Valoración</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -149,6 +150,7 @@ export const Formulario = (props) => {
               className="input-formulario form-control"
               onChange={(e) => setValoracion(e.target.value)}
             >
+              <option value="">Valoración</option>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -172,4 +174,18 @@ export const Formulario = (props) => {
       )}
     </section>
   );
+};
+
+Formulario.propTypes = {
+  urlAPI: PropTypes.string.isRequired,
+  llamadaAPI: PropTypes.func.isRequired,
+  editando: PropTypes.bool.isRequired,
+  toggleEditando: PropTypes.func.isRequired,
+  nombre: PropTypes.string.isRequired,
+  setNombre: PropTypes.func.isRequired,
+  apellido: PropTypes.string.isRequired,
+  setApellido: PropTypes.func.isRequired,
+  toggleCreando: PropTypes.func.isRequired,
+  creando: PropTypes.bool.isRequired,
+  setValoracion: PropTypes.func.isRequired,
 };
